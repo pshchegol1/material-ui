@@ -57,7 +57,7 @@ export default function Create() {
 
     if(title && details)
     {
-      fetch('http://localhost:8000/notes', {
+      fetch('https://react-material-ui-notes.netlify.app/notes', {
         method: 'POST',
         headers: {"Content-type": "application/json"},
         body: JSON.stringify({title, details, category})

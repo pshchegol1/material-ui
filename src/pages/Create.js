@@ -60,7 +60,7 @@ export default function Create() {
       fetch('https://react-material-ui-notes.netlify.app/notes', {
         method: 'POST',
         headers: {"Content-type": "application/json"},
-        body: JSON.stringify({title, details, category})
+        body: JSON.parse(JSON.stringify({title, details, category})) 
       }).then(() => history.push('/'))
     }
 

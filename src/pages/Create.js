@@ -11,6 +11,8 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { useHistory } from 'react-router';
 
+import firebase from './../firebase/firebase';
+
 
 const useStyles = makeStyles({
   field:{
@@ -29,13 +31,16 @@ export default function Create() {
   // Set titles and details
   const [title, setTitle] = useState('');
   const [details, setDetails] = useState('');
+  // Set category
+  const [category, setCategory] = useState('');
 
   // Display Errors
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
 
-  // Set category
-  const [category, setCategory] = useState('');
+  const redirectToNotes =(e)=>{
+    history.push('/')
+  }
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -57,11 +62,18 @@ export default function Create() {
 
     if(title && details)
     {
-      fetch('https://react-material-ui-notes.netlify.app/notes', {
-        method: 'POST',
-        headers: {"Content-type": "application/json"},
-        body: JSON.stringify({title, details, category})
-      }).then(() => history.push('/'))
+
+      const noteRef = firebase.database().ref('notes');
+
+      const noteData ={
+        title: title,
+        details:details,
+        category: category
+      }
+
+      noteRef.push(noteData)
+      redirectToNotes()
+    
     }
 
 

@@ -4,7 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import {Container} from '@material-ui/core';
 import Masonry from 'react-masonry-css';
 
-import NoteCard from '../components/NoteCard'
+import NoteCard from '../components/NoteCard';
+import firebase from './../firebase/firebase';
 
 
 export default function Notes() {
@@ -12,18 +13,37 @@ export default function Notes() {
   const [notes, setNotes] = useState([]);
 
   useEffect(() =>{
-      fetch('https://react-material-ui-notes.netlify.app/notes')
-      .then(res => res.json())
-      .then(data => setNotes(data))
+    
+    const itemsRef = firebase.database().ref('notes');
+    itemsRef.on('value', (snapshot) =>{
+        let items = snapshot.val();
+        let newState = [];
+        for(let item in items){
+            newState.push({
+                id:item,
+                title:items[item].title,
+                details:items[item].details,
+                category:items[item].category
+            })
+        }
+          setNotes(newState)
+        })
+        return () =>{
+          setNotes({});
+        }
   }, [])
 
-  const handleDelete = async (id) => {
-    await fetch('https://react-material-ui-notes.netlify.app/notes/' + id, {
-      method: 'DELETE'
-    })
 
-    const newNotes = notes.filter(note => note.id != id)
-    setNotes(newNotes)
+
+
+
+  const handleDelete = (id) => {
+    
+    const notesRef = firebase.database().ref(`/notes/${id}`);
+
+    notesRef.remove();
+
+    
   } 
 
   const breakpoints = {

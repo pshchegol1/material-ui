@@ -29,7 +29,7 @@ export default function Notes() {
           setNotes(newState)
         })
         return () =>{
-          setNotes({});
+          setNotes({}); 
         }
   }, [])
 

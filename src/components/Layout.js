@@ -5,13 +5,16 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import React from 'react';
+import React , { useState } from 'react'
 import { AddCircleOutlined, SubjectOutlined } from '@material-ui/icons';
 import { useHistory, useLocation } from 'react-router';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import {format} from 'date-fns';
-import Avatar from '@material-ui/core/Avatar'
+import Avatar from '@material-ui/core/Avatar';
+import Badge from '@material-ui/core/Badge';
+
+import firebase from './../firebase/firebase';
 
 const drawerWidth = 240;
 
@@ -45,7 +48,7 @@ const useStyles = makeStyles( (theme) => {
         flexGrow: 1
     },
     avatar: {
-        marginLeft: theme.spacing(2)
+        marginLeft: theme.spacing(4)
     }
 
     }
@@ -54,6 +57,18 @@ const useStyles = makeStyles( (theme) => {
 
 export default function Layout({children})
 {
+    const [count, setCount] = useState(0);
+
+    // ! NF-C
+    const totalNotes = (noteId) =>{
+
+        const notesRef = firebase.database().ref(`/notes/`);
+
+
+
+
+    }
+
     const classes = useStyles();
     // will redirect you to the clicked link (page)
     const history = useHistory();
@@ -76,12 +91,14 @@ export default function Layout({children})
         <div className={classes.root}>
             <AppBar className={classes.appbar} elevation={0}>
                 <Toolbar>
+                    
                     <Typography className={classes.date}>
+                       
                       Today is the: {format(new Date(), 'do MMMM Y') }
                     </Typography>
 
                     <Typography>
-                        Pavs
+                        <Badge color="secondary" badgeContent="Pavs"></Badge>
                     </Typography>
 
                     <Avatar className={classes.avatar} variant="square" src="/post.png" />
@@ -92,7 +109,12 @@ export default function Layout({children})
             classes={{paper: classes.drawerPaper}}>
                 <div>
                     <Typography variant="h5" className={classes.title}>
-                        My Notes
+                        
+                       
+                        <Badge badgeContent={3} color="secondary">
+                            My Notes
+                        </Badge>
+
                     </Typography>
                 </div>
 

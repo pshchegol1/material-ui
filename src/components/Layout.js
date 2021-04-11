@@ -62,10 +62,6 @@ export default function Layout({children})
     // ! NF-C
     const totalNotes = (noteId) =>{
 
-        const notesRef = firebase.database().ref(`/notes/`);
-
-
-
 
     }
 
@@ -110,9 +106,8 @@ export default function Layout({children})
                 <div>
                     <Typography variant="h5" className={classes.title}>
                         
-                       
-                        <Badge badgeContent={3} color="secondary">
-                            My Notes
+                        <Badge badgeContent={4} color="secondary">
+                            My Notes 
                         </Badge>
 
                     </Typography>

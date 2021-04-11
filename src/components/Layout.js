@@ -5,7 +5,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import React , { useState } from 'react'
+import React , { useState,useEffect } from 'react'
 import { AddCircleOutlined, SubjectOutlined } from '@material-ui/icons';
 import { useHistory, useLocation } from 'react-router';
 import AppBar from '@material-ui/core/AppBar';
@@ -15,6 +15,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 
 import firebase from './../firebase/firebase';
+import Badges from 'react-bootstrap/Badge'
 
 const drawerWidth = 240;
 
@@ -59,8 +60,9 @@ export default function Layout({children})
 {
     const [count, setCount] = useState(0);
 
+
     // ! NF-C
-    const totalNotes = (noteId) =>{
+    const totalNotes = (count) =>{
 
 
     }
@@ -89,12 +91,14 @@ export default function Layout({children})
                 <Toolbar>
                     
                     <Typography className={classes.date}>
-                       
-                      Today is the: {format(new Date(), 'do MMMM Y') }
+                       <Badges variant="info">
+                            Today is the: {format(new Date(), 'do MMMM Y') }
+                       </Badges>
+             
                     </Typography>
 
                     <Typography>
-                        <Badge color="secondary" badgeContent="Pavs"></Badge>
+                        <Badge color="secondary" badgeContent="Welcome"></Badge>
                     </Typography>
 
                     <Avatar className={classes.avatar} variant="square" src="/post.png" />
@@ -106,7 +110,7 @@ export default function Layout({children})
                 <div>
                     <Typography variant="h5" className={classes.title}>
                         
-                        <Badge badgeContent={4} color="secondary">
+                        <Badge badgeContent={1} color="secondary">
                             My Notes 
                         </Badge>
 

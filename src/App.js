@@ -1,10 +1,12 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core'
-import { purple } from '@material-ui/core/colors'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { purple } from '@material-ui/core/colors';
 
-import Notes from './pages/Notes'
-import Create from './pages/Create'
-import Layout from './components/Layout'
+
+import Notes from './pages/Notes';
+import Create from './pages/Create';
+import Layout from './components/Layout';
 
 
 // Changing the default theme

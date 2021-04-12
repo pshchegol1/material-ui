@@ -49,7 +49,12 @@ const useStyles = makeStyles( (theme) => {
         flexGrow: 1
     },
     avatar: {
-        marginLeft: theme.spacing(4)
+        marginLeft: theme.spacing(5)
+    },
+    badge:{
+        padding: '0 4px',
+        marginTop: 0,
+        marginLeft: 7
     }
 
     }
@@ -58,14 +63,22 @@ const useStyles = makeStyles( (theme) => {
 
 export default function Layout({children})
 {
+
+    // Count total notes in database and display it in badge
     const [count, setCount] = useState(0);
+    
+    useEffect(()=>{
+        const noteRef = firebase.database().ref('notes');
 
+        noteRef.on('value', function(snapshot){
+            let noteCount = 0;
+            snapshot.forEach(function(){
+                noteCount++;
+            })
+            setCount(noteCount)
+        })
+    })
 
-    // ! NF-C
-    const totalNotes = (count) =>{
-
-
-    }
 
     const classes = useStyles();
     // will redirect you to the clicked link (page)
@@ -109,12 +122,15 @@ export default function Layout({children})
             classes={{paper: classes.drawerPaper}}>
                 <div>
                     <Typography variant="h5" className={classes.title}>
-                        
-                        <Badge badgeContent={1} color="secondary">
                             My Notes 
-                        </Badge>
-
+                     
                     </Typography>
+                    <hr/>
+                    <Typography variant="h6" className={classes.title}>
+                           Total Notes:
+                            <Badge className={classes.badge} badgeContent={count} color="secondary"></Badge>
+                    </Typography>
+                
                 </div>
 
                 <List>

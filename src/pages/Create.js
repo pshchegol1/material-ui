@@ -10,16 +10,22 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { useHistory } from 'react-router';
+import Alert from '@material-ui/lab/Alert';
 
 import firebase from './../firebase/firebase';
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme)=>{
+  return{
   field:{
       marginTop: 20,
       marginBottom: 20, 
       display: 'block'
+  },
+  alert:{
+    display:'none'
   }
+}
 });
 
 export default function Create() {
@@ -42,15 +48,22 @@ export default function Create() {
     history.push('/')
   }
 
+
+
+
   const handleSubmit = (e) =>{
     e.preventDefault();
 
     setTitleError(false);
     setDetailsError(false);
 
+    
+
     if(title == '')
     {
       setTitleError(true);
+    
+      
     }
  
 
@@ -80,12 +93,13 @@ export default function Create() {
   }
 
   return (
+    
     <Container>
       
       <Typography variant = "h6" component="h2" gutterBottom color="textSecondary">
         Create a New Note
       </Typography>
-
+     
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <TextField 
         onChange={(e) => setTitle(e.target.value)}
@@ -97,7 +111,7 @@ export default function Create() {
         required
         error={titleError}
         />
-
+        
        <TextField 
          onChange={(e) => setDetails(e.target.value)}
         className={classes.field}
